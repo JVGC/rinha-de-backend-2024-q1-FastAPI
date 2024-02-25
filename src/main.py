@@ -1,10 +1,15 @@
-from typing import Union
-
 from fastapi import FastAPI
+
+from src.schemas import CreateTransactionPostBody, CreateTransactionResponse
 
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.post("/clients/:id/transacoes", response_model=CreateTransactionResponse)
+def create_transaction(id: int, transaction: CreateTransactionPostBody):
+
+    client = {"limit": 100000, "saldo": -900}
+    return {
+        "limite": client["limit"],
+        "saldo": client["saldo"],
+    }
